@@ -149,4 +149,30 @@ button:hover {
 <div class="mobile-bar"><a class="mobile-call" href="tel:+13166507516">Call Now</a><a class="mobile-quote" href="#quote">Get a Quote</a></div>
 <script>const menu=document.querySelector('.menu'),nav=document.querySelector('.navlinks');menu.addEventListener('click',()=>{const open=nav.classList.toggle('open');menu.setAttribute('aria-expanded',String(open))});document.querySelectorAll('.navlinks a').forEach(a=>a.addEventListener('click',()=>nav.classList.remove('open')));document.getElementById('year').textContent=new Date().getFullYear();</script>
 <script type="module">import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7.9.0/+esm";import {feature} from "https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/+esm";import us from "https://cdn.jsdelivr.net/npm/us-atlas@3.0.1/states-albers-10m.json/+esm";const licensed=new Set(["49","08","48","40","20","31","46","19","29","05","22","28","01","47","21","17","18","26","39","13","12","45","37","51","24","54"]);const names={"49":"Utah","08":"Colorado","48":"Texas","40":"Oklahoma","20":"Kansas","31":"Nebraska","46":"South Dakota","19":"Iowa","29":"Missouri","05":"Arkansas","22":"Louisiana","28":"Mississippi","01":"Alabama","47":"Tennessee","21":"Kentucky","17":"Illinois","18":"Indiana","26":"Michigan","39":"Ohio","13":"Georgia","12":"Florida","45":"South Carolina","37":"North Carolina","51":"Virginia","24":"Maryland","54":"West Virginia"};try{const svg=d3.select("#us-map"),states=feature(us,us.objects.states),path=d3.geoPath();svg.selectAll("path").data(states.features).join("path").attr("d",path).attr("fill",d=>licensed.has(String(d.id).padStart(2,"0"))?"#2c9b57":"#e7eaed").attr("stroke","#fff").attr("stroke-width",1.2).append("title").text(d=>names[String(d.id).padStart(2,"0")]||"Not currently licensed");document.getElementById("map-status").remove()}catch(e){document.getElementById("map-status").textContent="The interactive map requires an internet connection to load."}</script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const animatedElements = document.querySelectorAll(
+      ".reveal, .reveal-left, .reveal-right"
+    );
+
+    const observer = new IntersectionObserver(
+      (entries, observerInstance) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("active");
+            observerInstance.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.12,
+        rootMargin: "0px 0px -40px 0px"
+      }
+    );
+
+    animatedElements.forEach((element) => {
+      observer.observe(element);
+    });
+  });
+</script>
 </body></html>
